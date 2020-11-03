@@ -260,12 +260,12 @@ function Tank:init(map, x, y, tankColor, direction, player)
     end,
     ['moveDefault'] = function(dt)
       if self.player == 'playerOne' then
-        if love.keyboard.wasPressed('space') then
-          self.fire = true
-        end
         --Set animations and movement speed of player one tank depending on type of weapon equipped
         self.sounds['motor']:play()
         if love.keyboard.isDown('d') then
+          if love.keyboard.wasPressed('space') then
+            self.fire = true
+          end
           if self.whichPowerUp == 1 then
             self.animation = self.animations['moveDefault']
           elseif self.whichPowerUp == 2 then
@@ -284,6 +284,9 @@ function Tank:init(map, x, y, tankColor, direction, player)
           self:checkCollisionRight()
           self:checkPowerUpCollisionRight()
         elseif love.keyboard.isDown('a') then
+          if love.keyboard.wasPressed('space') then
+            self.fire = true
+          end
           if self.whichPowerUp == 1 then
             self.animation = self.animations['moveDefault']
           elseif self.whichPowerUp == 2 then
@@ -302,6 +305,9 @@ function Tank:init(map, x, y, tankColor, direction, player)
           self:checkCollisionLeft()
           self:checkPowerUpCollisionLeft()
         elseif love.keyboard.isDown('w') then
+          if love.keyboard.wasPressed('space') then
+            self.fire = true
+          end
           if self.whichPowerUp == 1 then
             self.animation = self.animations['moveDefault']
           elseif self.whichPowerUp == 2 then
@@ -320,6 +326,9 @@ function Tank:init(map, x, y, tankColor, direction, player)
           self:checkCollisionUp()
           self:checkPowerUpCollisionUp()
         elseif love.keyboard.isDown('s') then
+          if love.keyboard.wasPressed('space') then
+            self.fire = true
+          end
           if self.whichPowerUp == 1 then
             self.animation = self.animations['moveDefault']
           elseif self.whichPowerUp == 2 then
@@ -345,11 +354,11 @@ function Tank:init(map, x, y, tankColor, direction, player)
       end
       --Set animations and movement speed of player two tank depending on type of weapon equipped
       if self.player == 'playerTwo' then
-        if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-          self.fire = true
-        end
         self.sounds['motor']:play()
         if love.keyboard.isDown('right') then
+          if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+            self.fire = true
+          end
           if self.whichPowerUp == 1 then
             self.animation = self.animations['moveDefault']
           elseif self.whichPowerUp == 2 then
@@ -368,6 +377,9 @@ function Tank:init(map, x, y, tankColor, direction, player)
           self:checkCollisionRight()
           self:checkPowerUpCollisionRight()
         elseif love.keyboard.isDown('left') then
+          if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+            self.fire = true
+          end
           if self.whichPowerUp == 1 then
             self.animation = self.animations['moveDefault']
           elseif self.whichPowerUp == 2 then
@@ -386,6 +398,9 @@ function Tank:init(map, x, y, tankColor, direction, player)
           self:checkCollisionLeft()
           self:checkPowerUpCollisionLeft()
         elseif love.keyboard.isDown('up') then
+          if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+            self.fire = true
+          end
           if self.whichPowerUp == 1 then
             self.animation = self.animations['moveDefault']
           elseif self.whichPowerUp == 2 then
@@ -404,6 +419,9 @@ function Tank:init(map, x, y, tankColor, direction, player)
           self:checkCollisionUp()
           self:checkPowerUpCollisionUp()
         elseif love.keyboard.isDown('down') then
+          if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+            self.fire = true
+          end
           if self.whichPowerUp == 1 then
             self.animation = self.animations['moveDefault']
           elseif self.whichPowerUp == 2 then
