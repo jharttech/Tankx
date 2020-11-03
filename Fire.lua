@@ -1,6 +1,6 @@
 Fire = Class{}
 
-function Fire:init(map, x, y, rotation, tank, state)
+function Fire:init(map, x, y, rotation, tank)
   --Set path for spritesheet for muzzle blasts
   self.texture = love.graphics.newImage('graphics/Effects/shotsFired.png')
   self.frames = generateQuads(self.texture, 48, 48)
@@ -15,24 +15,9 @@ function Fire:init(map, x, y, rotation, tank, state)
   self.x = x
   self.y = y
 
-  self.rotation = rotation
+  self.state = 'none'
 
-  self.state = state
-
-  --Set muzzle blast to correct tank, location, and direction
-  if self.rotation == 0 or self.rotation == (2 * (math.pi)) then
-    self.x = self.x
-    self.y = self.y - ((self.height / 2) - 4)
-  elseif self.rotation == math.pi then
-    self.x = self.x
-    self.y = self.y + ((self.height / 2) - 4)
-  elseif self.rotation == (.5 * (math.pi)) then
-    self.x = self.x + ((self.width / 2) - 4)
-    self.y = self.y
-  elseif self.rotation == (1.5 * (math.pi)) then
-    self.x = self.x - ((self.width / 2) - 4)
-    self.y = self.y
-  end
+  self.direction = nil
 
   self.animations = {
     ['none'] = Animation {
@@ -57,6 +42,31 @@ function Fire:init(map, x, y, rotation, tank, state)
   self.behaviors = {
     ['fire'] = function(dt)
       self.animation = self.animations['fire']
+      if self.direction == 'up' then
+        if self.tank == 'tankOne' then
+          self.y = self.map.tankOne.y - ((self.height / 2) - 4)
+        elseif self.tank == 'tankTwo' then
+          self.y = self.map.tankTwo.y - ((self.height / 2) - 4)
+        end
+      elseif self.direction == 'down' then
+        if self.tank == 'tankOne' then
+          self.y = self.map.tankOne.y + ((self.height / 2) - 4)
+        elseif self.tank == 'tankTwo' then
+          self.y = self.map.tankTwo.y - ((self.height / 2) - 4)
+        end
+      elseif self.direction == 'left' then
+        if self.tank == 'tankOne' then
+          self.x = self.map.tankOne.x - ((self.width / 2) - 4)
+        elseif self.tank == 'tankTwo' then
+          self.x = self.map.tankTwo.x - ((self.width / 2) - 4)
+        end
+      elseif self.direction == 'right' then
+        if self.tank == 'tankOne' then
+          self.x = self.map.tankOne.x + ((self.width / 2) - 4)
+        elseif self.tank == 'tankTwo' then
+          self.x = self.map.tankTwo.x + ((self.width / 2) - 4)
+        end
+      end
       if self.animation.currentFrame == 5 then
         self.animation.currentFrame = 5
         self.animaton = self.animations['none']
@@ -73,7 +83,6 @@ function Fire:init(map, x, y, rotation, tank, state)
       elseif self.tank == 'tankTwo' then
         self.map.activeTwo = false
       end
-      self.state = 'none'
     end
   }
 end
@@ -84,7 +93,49 @@ function Fire:update(dt)
   if self.state == 'none' then
     self.animation.currentFrame = 1
   end
-
+  --Set muzzle blast to correct tank, location, and direction
+  if self.tank == 'tankOne' then
+    if love.keyboard.wasPressed('space') and self.state == 'none' then
+      self.rotation = self.map.tankOne.rotation
+      if self.rotation == 0 or self.rotation == (2 * (math.pi)) then
+        self.x = self.x
+        self.y = self.y - ((self.height / 2) - 4)
+        self.direction = 'up'
+      elseif self.rotation == math.pi then
+        self.x = self.x
+        self.y = self.y + ((self.height / 2) - 4)
+        self.direction = 'down'
+      elseif self.rotation == (.5 * (math.pi)) then
+        self.x = self.x + ((self.width / 2) - 4)
+        self.y = self.y
+        self.direction = 'right'
+      elseif self.rotation == (1.5 * (math.pi)) then
+        self.x = self.x - ((self.width / 2) - 4)
+        self.y = self.y
+        self.direction = 'left'
+      end
+      self.state = 'fire'
+    end
+  end
+  if self.tank == 'tankTwo' then
+    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') and self.state == 'none' then
+      self.rotation = self.map.tankTwo.rotation
+      if self.rotation == 0 or self.rotation == (2 * (math.pi)) then
+        self.x = self.x
+        self.y = self.y - ((self.height / 2) - 4)
+      elseif self.rotation == math.pi then
+        self.x = self.x
+        self.y = self.y + ((self.height / 2) - 4)
+      elseif self.rotation == (.5 * (math.pi)) then
+        self.x = self.x + ((self.width / 2) - 4)
+        self.y = self.y
+      elseif self.rotation == (1.5 * (math.pi)) then
+        self.x = self.x - ((self.width / 2) - 4)
+        self.y = self.y
+      end
+      self.state = 'fire'
+    end
+  end
 end
 
 
