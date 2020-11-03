@@ -243,24 +243,20 @@ function Map:update(dt)
     self.tankTwo:update(dt)
     --Create muzzle blast, projectile, projectile type, projectile direction, and set sanity check shotOne for tank One upon firing with space key
     if love.keyboard.wasPressed('space') and self.shotOne ~= true and (self.tankOne.hitCount > 0 and self.tankTwo.hitCount > 0) then
-      if self.tankOne.state == 'idleDefault' then
-        self.fireOne = Fire(self, self.tankOne.x, self.tankOne.y, self.tankOne.rotation, 'tankOne', state, start)
-        self.activeOne = true
-        self.projectileOne = Projectiles(self, self.tankOne.x, self.tankOne.y, self.tankOne.rotation, 'tankOne', state, dy)
-        self.projectileOne.bullet = self.currentLoadOutOne
-        self.shotOne = true
-      end
+      self.fireOne = Fire(self, self.tankOne.x, self.tankOne.y, self.tankOne.rotation, 'tankOne', state, start)
+      self.activeOne = true
+      self.projectileOne = Projectiles(self, self.tankOne.x, self.tankOne.y, self.tankOne.rotation, 'tankOne', state, dy)
+      self.projectileOne.bullet = self.currentLoadOutOne
+      self.shotOne = true
     end
 
     --Create muzzle blast, projectile, projectile type, projectile direction, and set sanity check shotTwo for tank Two upon firing with enter key
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') and self.shotTwo ~= true and (self.tankOne.hitCount > 0 and self.tankTwo.hitCount > 0) then
-      if self.tankTwo.state == 'idleDefault' then
-        self.fireTwo = Fire(self, self.tankTwo.x, self.tankTwo.y, self.tankTwo.rotation, 'tankTwo', state, start)
-        self.activeTwo = true
-        self.projectileTwo = Projectiles(self, self.tankTwo.x, self.tankTwo.y, self.tankTwo.rotation, 'tankTwo', state, dy)
-        self.projectileTwo.bullet = self.currentLoadOutTwo
-        self.shotTwo = true
-      end
+      self.fireTwo = Fire(self, self.tankTwo.x, self.tankTwo.y, self.tankTwo.rotation, 'tankTwo', state, start)
+      self.activeTwo = true
+      self.projectileTwo = Projectiles(self, self.tankTwo.x, self.tankTwo.y, self.tankTwo.rotation, 'tankTwo', state, dy)
+      self.projectileTwo.bullet = self.currentLoadOutTwo
+      self.shotTwo = true
     end
 
     --Run muzzle blast animation if activeOne or activeTwo is true
