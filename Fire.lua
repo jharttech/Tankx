@@ -17,6 +17,8 @@ function Fire:init(map, x, y, rotation, tank)
 
   self.state = 'none'
 
+  self.direction = nil
+
   self.animations = {
     ['none'] = Animation {
       texture = self.texture,
@@ -40,6 +42,31 @@ function Fire:init(map, x, y, rotation, tank)
   self.behaviors = {
     ['fire'] = function(dt)
       self.animation = self.animations['fire']
+      if self.direction == 'up' then
+        if self.tank == 'tankOne' then
+          self.y = self.map.tankOne.y - ((self.height / 2) - 4)
+        elseif self.tank == 'tankTwo' then
+          self.y = self.map.tankTwo.y - ((self.height / 2) - 4)
+        end
+      elseif self.direction == 'down' then
+        if self.tank == 'tankOne' then
+          self.y = self.map.tankOne.y + ((self.height / 2) - 4)
+        elseif self.tank == 'tankTwo' then
+          self.y = self.map.tankTwo.y - ((self.height / 2) - 4)
+        end
+      elseif self.direction == 'left' then
+        if self.tank == 'tankOne' then
+          self.x = self.map.tankOne.x - ((self.width / 2) - 4)
+        elseif self.tank == 'tankTwo' then
+          self.x = self.map.tankTwo.x - ((self.width / 2) - 4)
+        end
+      elseif self.direction == 'right' then
+        if self.tank == 'tankOne' then
+          self.x = self.map.tankOne.x + ((self.width / 2) - 4)
+        elseif self.tank == 'tankTwo' then
+          self.x = self.map.tankTwo.x + ((self.width / 2) - 4)
+        end
+      end
       if self.animation.currentFrame == 5 then
         self.animation.currentFrame = 5
         self.animaton = self.animations['none']
@@ -73,15 +100,19 @@ function Fire:update(dt)
       if self.rotation == 0 or self.rotation == (2 * (math.pi)) then
         self.x = self.x
         self.y = self.y - ((self.height / 2) - 4)
+        self.direction = 'up'
       elseif self.rotation == math.pi then
         self.x = self.x
         self.y = self.y + ((self.height / 2) - 4)
+        self.direction = 'down'
       elseif self.rotation == (.5 * (math.pi)) then
         self.x = self.x + ((self.width / 2) - 4)
         self.y = self.y
+        self.direction = 'right'
       elseif self.rotation == (1.5 * (math.pi)) then
         self.x = self.x - ((self.width / 2) - 4)
         self.y = self.y
+        self.direction = 'left'
       end
       self.state = 'fire'
     end
