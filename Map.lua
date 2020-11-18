@@ -251,7 +251,7 @@ function Map:update(dt)
     end
 
     --Create muzzle blast, projectile, projectile type, projectile direction, and set sanity check shotTwo for tank Two upon firing with enter key
-    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') and self.shotTwo ~= true and (self.tankOne.hitCount > 0 and self.tankTwo.hitCount > 0) and (self.tankOne.state ~= 'rotateLeft' and self.tankOne.state ~= 'rotateRight') then
+    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') and self.shotTwo ~= true and (self.tankOne.hitCount > 0 and self.tankTwo.hitCount > 0) and (self.tankTwo.state ~= 'rotateLeft' and self.tankTwo.state ~= 'rotateRight') then
       self.fireTwo = Fire(self, self.tankTwo.x, self.tankTwo.y, self.tankTwo.rotation, 'tankTwo', state, start)
       self.activeTwo = true
       self.projectileTwo = Projectiles(self, self.tankTwo.x, self.tankTwo.y, self.tankTwo.rotation, 'tankTwo', state, dy)
