@@ -485,7 +485,7 @@ function Map:render()
   --Display game info
   self:display()
   --Display debug info if needed
-  self:debug()
+  --self:debug()
 end
 
 function Map:tileAt(x,y)
