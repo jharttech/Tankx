@@ -52,8 +52,8 @@ function Map:init()
   self.match = 1
 
   --Create tanks
-  self.tankOne = Tank(self, 0, math.random(0, self.mapHeightPixels - 48), 'brown', 'right', 'playerOne')
-  self.tankTwo = Tank(self, self.mapWidthPixels - 48, math.random(0, self.mapHeightPixels - 48), 'blue', 'left', 'playerTwo')
+  self.tankOne = Tank(self, 0, math.random(0, self.mapHeightPixels - 48), 'brown', 'right', 'playerOne', state)
+  self.tankTwo = Tank(self, self.mapWidthPixels - 48, math.random(0, self.mapHeightPixels - 48), 'blue', 'left', 'playerTwo', state)
 
   --Initialize all sanity checks
   self.activeOne = false
@@ -242,7 +242,7 @@ function Map:update(dt)
     self.tankOne:update(dt)
     self.tankTwo:update(dt)
     --Create muzzle blast, projectile, projectile type, projectile direction, and set sanity check shotOne for tank One upon firing with space key
-    if love.keyboard.wasPressed('space') and self.shotOne ~= true and (self.tankOne.hitCount > 0 and self.tankTwo.hitCount > 0) then
+    if love.keyboard.wasPressed('space') and self.shotOne ~= true and (self.tankOne.hitCount > 0 and self.tankTwo.hitCount > 0) and (self.tankOne.state ~= 'rotateLeft' and self.tankOne.state ~= 'rotateRight') then
       self.fireOne = Fire(self, self.tankOne.x, self.tankOne.y, self.tankOne.rotation, 'tankOne', state, start)
       self.activeOne = true
       self.projectileOne = Projectiles(self, self.tankOne.x, self.tankOne.y, self.tankOne.rotation, 'tankOne', state, dy)
@@ -251,7 +251,7 @@ function Map:update(dt)
     end
 
     --Create muzzle blast, projectile, projectile type, projectile direction, and set sanity check shotTwo for tank Two upon firing with enter key
-    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') and self.shotTwo ~= true and (self.tankOne.hitCount > 0 and self.tankTwo.hitCount > 0) then
+    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') and self.shotTwo ~= true and (self.tankOne.hitCount > 0 and self.tankTwo.hitCount > 0) and (self.tankOne.state ~= 'rotateLeft' and self.tankOne.state ~= 'rotateRight') then
       self.fireTwo = Fire(self, self.tankTwo.x, self.tankTwo.y, self.tankTwo.rotation, 'tankTwo', state, start)
       self.activeTwo = true
       self.projectileTwo = Projectiles(self, self.tankTwo.x, self.tankTwo.y, self.tankTwo.rotation, 'tankTwo', state, dy)
@@ -485,7 +485,7 @@ function Map:render()
   --Display game info
   self:display()
   --Display debug info if needed
-  --self:debug()
+  self:debug()
 end
 
 function Map:tileAt(x,y)
