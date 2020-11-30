@@ -22,6 +22,12 @@ The first player to win 3 rounds is the games winner.
 
 Press "esc" key anytime to exit the game.
 
+<h2><b>Details</b></h2>
+This game will randomly spawn the environment each match, along with the location of the tanks.
+Powerups will spawn in random locations and will spawn with a random type.
+Each powerup adjusts the amount of damage that a tank can cause.
+Each powerup will adjust the speed at which a tank can move and shoot.
+
 <b>NOTE: I intend on adding more effects, shells, and HP balancing in the future, along with other options, but I am submitting this project as is to satify the requirements for the cert.
 
-As such I am sure there are plenty of bugs to go round.</b>
+As such I am sure there are plenty of bugs to go round.  Example: No collision detection between tanks.</b>
